@@ -1,2 +1,5 @@
-/Users/rich/testspring/src/main/java/hello/HellowController.java
-/Users/rich/testspring/src/main/java/hello/Application.java
+/Users/rich/browniepointsv2/brownie-api/src/main/java/brownieapi/apicontroller/HelloController.java
+/Users/rich/browniepointsv2/brownie-api/src/main/java/brownieapi/dataaccess/PointsCollectorRepository.java
+/Users/rich/browniepointsv2/brownie-api/src/main/java/brownieapi/Application.java
+/Users/rich/browniepointsv2/brownie-api/src/main/java/brownieapi/apicontroller/PointsController.java
+/Users/rich/browniepointsv2/brownie-api/src/main/java/brownieapi/model/PointsAccount.java

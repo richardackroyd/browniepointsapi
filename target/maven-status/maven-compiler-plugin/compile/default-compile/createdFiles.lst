@@ -1,2 +1,5 @@
-hello/HelloController.class
-hello/Application.class
+brownieapi/dataaccess/PointsCollectorRepository.class
+brownieapi/apicontroller/HelloController.class
+brownieapi/apicontroller/PointsController.class
+brownieapi/Application.class
+brownieapi/model/PointsAccount.class
