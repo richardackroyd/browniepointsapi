@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: brownieapi.PointsControllerTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.673 sec - in brownieapi.PointsControllerTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.716 sec - in brownieapi.PointsControllerTest
