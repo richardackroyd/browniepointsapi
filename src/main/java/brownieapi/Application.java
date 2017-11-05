@@ -22,7 +22,7 @@ public class Application {
         return args -> {
 
 
-            repository.save(createAccount(10, "Alex"));
+            //repository.save(createAccount(10, "Alex"));
   //          repository.save(createAccount(4, "Emily"));
     //        repository.save(createAccount(12, "Hannah"));
 

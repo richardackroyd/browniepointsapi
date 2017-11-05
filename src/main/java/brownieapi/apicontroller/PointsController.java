@@ -49,6 +49,14 @@ public class PointsController {
 
     }
 
+    @RequestMapping("/save")
+    public String createData () {
+
+        repositoryOfPointsAccounts.save(new PointsAccount(10, "Alex"));
+        return("Done");
+
+    }
+
     @RequestMapping("/points/{id}")
     public PointsAccount PointsAccountSingle (@PathVariable Long id) {
 
@@ -64,11 +72,7 @@ public class PointsController {
 
     private PointsAccount setPointsAccountNullValues() {
 
-        PointsAccount returnPoints = new PointsAccount();
-        returnPoints.setName("No data");
-        returnPoints.setID(Long.valueOf(-1));
-        returnPoints.setPoints(0);
-
+        PointsAccount returnPoints = new PointsAccount(0, "No data");
         return returnPoints;
     }
 
