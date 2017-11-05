@@ -18,18 +18,11 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx, final PointsCollectorRepository repository) {
+    public CommandLineRunner commandLineRunner(PointsCollectorRepository repository) {
         return args -> {
 
-            System.out.println("Let's inspect the beans provided by Spring Boot:");
 
-            String[] beanNames = ctx.getBeanDefinitionNames();
-            Arrays.sort(beanNames);
-            for (String beanName : beanNames) {
-                System.out.println(beanName);
-            }
-
-//            repository.save(createAccount(10, "Alex"));
+            repository.save(createAccount(10, "Alex"));
   //          repository.save(createAccount(4, "Emily"));
     //        repository.save(createAccount(12, "Hannah"));
 

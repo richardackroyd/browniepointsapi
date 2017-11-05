@@ -12,9 +12,10 @@ import javax.persistence.Id;
  */
 
 @Entity
-@Table(name = "POINTS_ACCOUNT")
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class PointsAccount {
+
+//    @Table(name = "POINTS_ACCOUNT")
+//    @JsonIgnoreProperties(ignoreUnknown = true)
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
