@@ -58,9 +58,9 @@ public class PointsController {
     }
 
     @RequestMapping(value = "/addEntry", method = RequestMethod.POST)
-    public String addEntry(@RequestBody String name, int points) {
+    public String addEntry(@RequestBody PointsAccount pointsAccount) {
 
-        repositoryOfPointsAccounts.save(new PointsAccount(points, name));
+        repositoryOfPointsAccounts.save(pointsAccount);
         return ("Added");
 
     }
