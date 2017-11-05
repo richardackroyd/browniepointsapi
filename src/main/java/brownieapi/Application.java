@@ -29,9 +29,9 @@ public class Application {
                 System.out.println(beanName);
             }
 
-            repository.save(createAccount(10, "Alex"));
-            repository.save(createAccount(4, "Emily"));
-            repository.save(createAccount(12, "Hannah"));
+//            repository.save(createAccount(10, "Alex"));
+  //          repository.save(createAccount(4, "Emily"));
+    //        repository.save(createAccount(12, "Hannah"));
 
         };
     }
