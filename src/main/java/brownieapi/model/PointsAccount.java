@@ -17,13 +17,14 @@ public class PointsAccount {
 //    @Table(name = "POINTS_ACCOUNT")
 //    @JsonIgnoreProperties(ignoreUnknown = true)
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    //private Long id;
     private int points;
     private String name;
 
-    public Long getID() {
+
+/**    public Long getID() {
 
         return id;
 
@@ -33,7 +34,7 @@ public class PointsAccount {
 
         this.id = id;
 
-    }
+    }**/
 
     public int getPoints() {
 
