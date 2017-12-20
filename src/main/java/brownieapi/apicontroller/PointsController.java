@@ -60,6 +60,7 @@ public class PointsController {
     @RequestMapping(value = "/addEntry", method = RequestMethod.POST)
     public String addEntry(@RequestBody PointsAccount pointsAccount) {
 
+        System.out.println("got to the save point");
         repositoryOfPointsAccounts.save(pointsAccount);
         return ("Added");
 
