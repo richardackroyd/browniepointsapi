@@ -1,26 +1,41 @@
 package brownieapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 
 /**
  * Created by rich on 01/07/2017.
  */
 
 @Entity
-@Table(name = "POINTS_ACCOUNT")
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Table(name = "pointsaccount")
 public class PointsAccount {
+
+
+//    @JsonIgnoreProperties(ignoreUnknown = true)
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "points")
     private int points;
+
+    @Column(name = "name")
     private String name;
+
+    public PointsAccount() {
+
+    }
+
+    public PointsAccount(int points, String name) {
+
+        this.name = name;
+        this.points = points;
+
+    }
+
 
     public Long getID() {
 

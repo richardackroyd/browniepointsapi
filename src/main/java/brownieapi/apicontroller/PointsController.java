@@ -2,17 +2,35 @@ package brownieapi.apicontroller;
 
 import brownieapi.dataaccess.PointsCollectorRepository;
 import brownieapi.model.PointsAccount;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/api")
 public class PointsController {
+
+    @Value("${spring.datasource.url}")
+    private String dbUrl;
+
+    @Autowired
+    private DataSource dataSource;
 
     private final PointsCollectorRepository repositoryOfPointsAccounts;
 
@@ -31,6 +49,23 @@ public class PointsController {
 
     }
 
+    @RequestMapping("/save")
+    public String createData () {
+
+        repositoryOfPointsAccounts.save(new PointsAccount(10, "Alex"));
+        return("Done");
+
+    }
+
+    @RequestMapping(value = "/addEntry", method = RequestMethod.POST)
+    public String addEntry(@RequestBody PointsAccount pointsAccount) {
+
+        System.out.println("got to the save point");
+        repositoryOfPointsAccounts.save(pointsAccount);
+        return ("Added");
+
+    }
+
     @RequestMapping("/points/{id}")
     public PointsAccount PointsAccountSingle (@PathVariable Long id) {
 
@@ -46,11 +81,7 @@ public class PointsController {
 
     private PointsAccount setPointsAccountNullValues() {
 
-        PointsAccount returnPoints = new PointsAccount();
-        returnPoints.setName("No data");
-        returnPoints.setID(Long.valueOf(-1));
-        returnPoints.setPoints(0);
-
+        PointsAccount returnPoints = new PointsAccount(0, "No data");
         return returnPoints;
     }
 

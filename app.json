@@ -1,0 +1,5 @@
+{
+  "name": "Browniepoints API for Heroku",
+  "description": "This is the Browniepoint backend structured to run on Heroku."
+  "addons": [ "heroku-postgresql" ]
+}

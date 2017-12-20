@@ -1,0 +1,1 @@
+web: java -jar target/brownieapi-1.0.jar
