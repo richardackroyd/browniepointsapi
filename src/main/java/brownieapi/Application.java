@@ -21,7 +21,6 @@ public class Application {
     public CommandLineRunner commandLineRunner(PointsCollectorRepository repository) {
         return args -> {
 
-
             //repository.save(createAccount(10, "Alex"));
   //          repository.save(createAccount(4, "Emily"));
     //        repository.save(createAccount(12, "Hannah"));
