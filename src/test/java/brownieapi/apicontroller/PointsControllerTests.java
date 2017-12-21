@@ -88,6 +88,22 @@ public class PointsControllerTests {
     }
 
     @Test
+    public void testGetPointsAccountNull() throws Exception {
+
+        PointsAccount pointsAccount = null;
+        Long id = Integer.toUnsignedLong(0);
+
+        when(repositoryOfPointsAccounts.findOne(Integer.toUnsignedLong(1))).thenReturn(pointsAccount);
+
+        mockMvc.perform(get("/api/points/{id}", 1))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("points", is(0)))
+                .andExpect(jsonPath("name", is("No data")));
+
+    }
+
+    @Test
     public void testCreatePointsAccount() throws Exception {
 
         PointsAccount pointsAccount = new PointsAccount(1234, "richwithprofiles");

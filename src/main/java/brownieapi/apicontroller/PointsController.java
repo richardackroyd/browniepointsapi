@@ -16,11 +16,11 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/api")
 public class PointsController {
 
-    @Value("${spring.datasource.url}")
-    private String dbUrl;
+//    @Value("${spring.datasource.url}")
+//    private String dbUrl;
 
-    @Autowired
-    private DataSource dataSource;
+//    @Autowired
+//    private DataSource dataSource;
 
     @Autowired
     private PointsCollectorRepository repositoryOfPointsAccounts;
@@ -28,41 +28,33 @@ public class PointsController {
     @RequestMapping("/points")
     public List<PointsAccount> GetPointsAccounts() {
 
-        final List<PointsAccount> accounts = StreamSupport.stream(repositoryOfPointsAccounts.findAll().spliterator(),
+        return StreamSupport.stream(repositoryOfPointsAccounts.findAll().spliterator(),
                 false).collect(Collectors.toList());
-
-        return accounts;
 
     }
 
     @RequestMapping(value = "/addEntry", method = RequestMethod.POST)
     public PointsAccount CreatePointsAccount(@RequestBody PointsAccount pointsAccount) {
 
-        PointsAccount returnedPointsAccount = new PointsAccount();
-
-        returnedPointsAccount = repositoryOfPointsAccounts.save(pointsAccount);
-
-        return returnedPointsAccount;
+        return repositoryOfPointsAccounts.save(pointsAccount);
 
     }
 
     @RequestMapping("/points/{id}")
     public PointsAccount GetPointsAccount (@PathVariable Long id) {
 
-        PointsAccount indiviualPointsAccount = new PointsAccount();
-        indiviualPointsAccount = repositoryOfPointsAccounts.findOne(id);
+        PointsAccount individualPointsAccount = repositoryOfPointsAccounts.findOne(id);
 
-        if (indiviualPointsAccount == null) {
+        if (individualPointsAccount == null) {
             return setPointsAccountNullValues();
         }
 
-        return indiviualPointsAccount;
+        return individualPointsAccount;
     }
 
     private PointsAccount setPointsAccountNullValues() {
 
-        PointsAccount returnPoints = new PointsAccount(0, "No data");
-        return returnPoints;
+        return new PointsAccount(0, "No data");
     }
 
 }
