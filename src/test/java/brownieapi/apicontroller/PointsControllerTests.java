@@ -5,18 +5,16 @@ package brownieapi.apicontroller;
  * Created by rich on 20/12/2017.
  */
 
-import brownieapi.dataaccess.PointsCollectorRepository;
+import brownieapi.ApplicationTests;
 import brownieapi.model.PointsAccount;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import brownieapi.dataaccess.PointsCollectorRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.Assert;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.*;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;

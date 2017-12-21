@@ -26,6 +26,10 @@ public class PointsController {
     @RequestMapping(value = "/addEntry", method = RequestMethod.POST)
     public PointsAccount CreatePointsAccount(@RequestBody PointsAccount pointsAccount) {
 
+        System.out.println("initial object: " + pointsAccount.getID());
+        System.out.println("initial object: " + pointsAccount.getName());
+        System.out.println("initial object: " + pointsAccount.getPoints());
+
         return repositoryOfPointsAccounts.save(pointsAccount);
 
     }
@@ -35,9 +39,7 @@ public class PointsController {
 
         PointsAccount individualPointsAccount = repositoryOfPointsAccounts.findOne(id);
 
-        if (individualPointsAccount == null) {
-            return setPointsAccountNullValues();
-        }
+        if (individualPointsAccount == null) return setPointsAccountNullValues();
 
         return individualPointsAccount;
     }
