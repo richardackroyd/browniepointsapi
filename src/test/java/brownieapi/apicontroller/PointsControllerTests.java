@@ -5,7 +5,6 @@ package brownieapi.apicontroller;
  * Created by rich on 20/12/2017.
  */
 
-import brownieapi.ApplicationTests;
 import brownieapi.model.PointsAccount;
 import brownieapi.dataaccess.PointsCollectorRepository;
 import org.junit.Before;
