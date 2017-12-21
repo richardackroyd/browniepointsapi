@@ -2,23 +2,9 @@ package brownieapi.apicontroller;
 
 import brownieapi.dataaccess.PointsCollectorRepository;
 import brownieapi.model.PointsAccount;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -26,63 +12,41 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/api")
 public class PointsController {
 
-    @Value("${spring.datasource.url}")
-    private String dbUrl;
-
     @Autowired
-    private DataSource dataSource;
-
-    private final PointsCollectorRepository repositoryOfPointsAccounts;
-
-    @Autowired
-    public PointsController(final PointsCollectorRepository repository) {
-        this.repositoryOfPointsAccounts = repository;
-    }
+    private PointsCollectorRepository repositoryOfPointsAccounts;
 
     @RequestMapping("/points")
-    public List<PointsAccount> PointsAccount() {
+    public List<PointsAccount> GetPointsAccounts() {
 
-        final List<PointsAccount> accounts = StreamSupport.stream(repositoryOfPointsAccounts.findAll().spliterator(),
+        return StreamSupport.stream(repositoryOfPointsAccounts.findAll().spliterator(),
                 false).collect(Collectors.toList());
-
-        return accounts;
-
-    }
-
-    @RequestMapping("/save")
-    public String createData () {
-
-        repositoryOfPointsAccounts.save(new PointsAccount(10, "Alex"));
-        return("Done");
 
     }
 
     @RequestMapping(value = "/addEntry", method = RequestMethod.POST)
-    public String addEntry(@RequestBody PointsAccount pointsAccount) {
+    public PointsAccount CreatePointsAccount(@RequestBody PointsAccount pointsAccount) {
 
-        System.out.println("got to the save point");
-        repositoryOfPointsAccounts.save(pointsAccount);
-        return ("Added");
+        System.out.println("initial object: " + pointsAccount.getID());
+        System.out.println("initial object: " + pointsAccount.getName());
+        System.out.println("initial object: " + pointsAccount.getPoints());
+
+        return repositoryOfPointsAccounts.save(pointsAccount);
 
     }
 
     @RequestMapping("/points/{id}")
-    public PointsAccount PointsAccountSingle (@PathVariable Long id) {
+    public PointsAccount GetPointsAccount (@PathVariable Long id) {
 
-        PointsAccount indiviualPointsAccount = new PointsAccount();
-        indiviualPointsAccount = repositoryOfPointsAccounts.findOne(id);
+        PointsAccount individualPointsAccount = repositoryOfPointsAccounts.findOne(id);
 
-        if (indiviualPointsAccount == null) {
-            return setPointsAccountNullValues();
-        }
+        if (individualPointsAccount == null) return setPointsAccountNullValues();
 
-        return indiviualPointsAccount;
+        return individualPointsAccount;
     }
 
     private PointsAccount setPointsAccountNullValues() {
 
-        PointsAccount returnPoints = new PointsAccount(0, "No data");
-        return returnPoints;
+        return new PointsAccount(0, "No data");
     }
 
 }

@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HelloController {
 
     @RequestMapping("/")
-    public String index() {
-        return "Greetings from Spring Boot and Rich with profiles!";
+    public String provideGreetings() {
+        return "Greetings from Spring Boot and Rich with profiles and tidied class!";
     }
 
 }
