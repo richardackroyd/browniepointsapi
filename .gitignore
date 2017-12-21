@@ -1,2 +1,6 @@
-./target
-./.idea
+target/
+target/*
+*.jar
+.idea/
+./.idea/*
+./.idea/.name
