@@ -2,6 +2,7 @@ package brownieapi.apicontroller;
 
 import brownieapi.dataaccess.PointsCollectorRepository;
 import brownieapi.model.PointsAccount;
+import brownieapi.model.PointsAccountChangePoints;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -23,17 +24,6 @@ public class PointsController {
 
     }
 
-    @RequestMapping(value = "/addEntry", method = RequestMethod.POST)
-    public PointsAccount CreatePointsAccount(@RequestBody PointsAccount pointsAccount) {
-
-        System.out.println("initial object: " + pointsAccount.getID());
-        System.out.println("initial object: " + pointsAccount.getName());
-        System.out.println("initial object: " + pointsAccount.getPoints());
-
-        return repositoryOfPointsAccounts.save(pointsAccount);
-
-    }
-
     @RequestMapping("/points/{id}")
     public PointsAccount GetPointsAccount (@PathVariable Long id) {
 
@@ -42,6 +32,28 @@ public class PointsController {
         if (individualPointsAccount == null) return setPointsAccountNullValues();
 
         return individualPointsAccount;
+    }
+
+    @RequestMapping(value = "/addEntry", method = RequestMethod.POST)
+    public PointsAccount CreatePointsAccount(@RequestBody PointsAccount pointsAccount) {
+
+        return repositoryOfPointsAccounts.save(pointsAccount);
+
+    }
+
+    @RequestMapping(value = "/addPoint", method = RequestMethod.PUT)
+    public int AddPointsToAccount(@RequestBody PointsAccountChangePoints pointsAccountToChange) {
+
+        PointsAccount startingPointsAccount = repositoryOfPointsAccounts.findOne(pointsAccountToChange.getIdToChange());
+
+        int updatedPoints = startingPointsAccount.getPoints() + pointsAccountToChange.getChangeByPoints();
+
+        startingPointsAccount.setPoints(updatedPoints);
+
+        repositoryOfPointsAccounts.save(startingPointsAccount);
+
+        return startingPointsAccount.getPoints();
+        
     }
 
     private PointsAccount setPointsAccountNullValues() {
