@@ -52,10 +52,8 @@ public class PointsController {
         startingPointsAccount.setPoints(updatedPoints);
 
         repositoryOfPointsAccounts.save(startingPointsAccount);
-
-        return pointsToAddToAccount.getChangeByPoints();
-
-//        return startingPointsAccount.getPoints();
+        
+        return startingPointsAccount.getPoints();
 
     }
 
