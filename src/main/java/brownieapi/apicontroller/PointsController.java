@@ -16,7 +16,7 @@ public class PointsController {
     @Autowired
     private PointsCollectorRepository repositoryOfPointsAccounts;
 
-    @RequestMapping("/points")
+    @RequestMapping(value = "/points", method = RequestMethod.GET)
     public List<PointsAccount> GetPointsAccounts() {
 
         return StreamSupport.stream(repositoryOfPointsAccounts.findAll().spliterator(),
@@ -24,7 +24,7 @@ public class PointsController {
 
     }
 
-    @RequestMapping("/points/{id}")
+    @RequestMapping(value = "/points/{id}",  method = RequestMethod.GET)
     public PointsAccount GetPointsAccount (@PathVariable Long id) {
 
         PointsAccount individualPointsAccount = repositoryOfPointsAccounts.findOne(id);
