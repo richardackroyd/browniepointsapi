@@ -2,8 +2,7 @@ package brownieapi.apicontroller;
 
 import brownieapi.dataaccess.PointsCollectorRepository;
 import brownieapi.model.PointsAccount;
-import brownieapi.model.PointsAccountChangePoints;
-import javafx.scene.effect.Light;
+import brownieapi.model.AddPointsToAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -42,17 +41,29 @@ public class PointsController {
 
     }
 
-    //TODO update update call to take the ID as @PathVariable to the URI and not as a parameter
-    //TODO should this return points int or the actual object
     //TODO consider whether should return the object from crudrepository.save in case has changed
     @RequestMapping(value = "/addPoint/{id}", method = RequestMethod.PUT)
-    public int AddPointsToAccount(@PathVariable Long id, @RequestBody PointsAccountChangePoints pointsAccountToChange) {
+    public int AddPointsToAccount(@PathVariable Long id, @RequestBody AddPointsToAccount pointsToAddToAccount) {
 
-        System.out.println("The passed id is: " + id);
-        
-        PointsAccount startingPointsAccount = repositoryOfPointsAccounts.findOne(pointsAccountToChange.getIdToChange());
+        PointsAccount startingPointsAccount = repositoryOfPointsAccounts.findOne(id);
 
-        int updatedPoints = startingPointsAccount.getPoints() + pointsAccountToChange.getChangeByPoints();
+        int updatedPoints = startingPointsAccount.getPoints() + pointsToAddToAccount.getChangeByPoints();
+
+        startingPointsAccount.setPoints(updatedPoints);
+
+        repositoryOfPointsAccounts.save(startingPointsAccount);
+
+        return startingPointsAccount.getPoints();
+
+    }
+
+    //TODO consider whether should return the object from crudrepository.save in case has changed
+    @RequestMapping(value = "/removePoint/{id}", method = RequestMethod.PUT)
+    public int RemovePointsToAccount(@PathVariable Long id, @RequestBody AddPointsToAccount pointsToAddToAccount) {
+
+        PointsAccount startingPointsAccount = repositoryOfPointsAccounts.findOne(id);
+
+        int updatedPoints = startingPointsAccount.getPoints() - pointsToAddToAccount.getChangeByPoints();
 
         startingPointsAccount.setPoints(updatedPoints);
 

@@ -7,7 +7,7 @@ package brownieapi.apicontroller;
 
 import brownieapi.model.PointsAccount;
 import brownieapi.dataaccess.PointsCollectorRepository;
-import brownieapi.model.PointsAccountChangePoints;
+import brownieapi.model.AddPointsToAccount;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -104,33 +104,50 @@ public class PointsControllerTests {
     @Test
     public void testCreatePointsAccount() throws Exception {
 
-        PointsAccount pointsAccount = new PointsAccount(1234, "richwithprofiles");
+        PointsAccount pointsAccount = new PointsAccount(1234, "Bryan Clough");
 
         when(repositoryOfPointsAccounts.save(pointsAccount)).thenReturn(pointsAccount);
 
         mockMvc.perform(post("/api/addEntry")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content("{\"name\":\"richwithprofiles\", \"points\":1234}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("name", is("Bryan Clough")));
+                    .content("{\"name\":\"Bryan Clough\", \"points\":1234}"))
+                .andExpect(status().isOk());
     }
 
     @Test
     public void testAddPointsAccount() throws Exception {
 
-        PointsAccountChangePoints pointsAccountChangePoints =
-                new PointsAccountChangePoints(new Long(1),1);
+        AddPointsToAccount pointsAccountChangePoints =
+                new AddPointsToAccount(1);
         PointsAccount pointsAccount = new PointsAccount(1, "richwithprofiles");
         pointsAccount.setID(new Long(1));
         Long idToChange = new Long(1);
 
         when(repositoryOfPointsAccounts.findOne(idToChange)).thenReturn(pointsAccount);
 
-        mockMvc.perform(put("/api/addPoint")
+        mockMvc.perform(put("/api/addPoint/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"idToChange\":1, \"changeByPoints\":1}"))
+                .content("{\"changeByPoints\":1}"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("2"));
+    }
+
+    @Test
+    public void testRemovePointsAccount() throws Exception {
+
+        AddPointsToAccount pointsAccountChangePoints =
+                new AddPointsToAccount(1);
+        PointsAccount pointsAccount = new PointsAccount(1, "richwithprofiles");
+        pointsAccount.setID(new Long(1));
+        Long idToChange = new Long(1);
+
+        when(repositoryOfPointsAccounts.findOne(idToChange)).thenReturn(pointsAccount);
+
+        mockMvc.perform(put("/api/removePoint/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"changeByPoints\":1}"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("0"));
     }
 
 }
