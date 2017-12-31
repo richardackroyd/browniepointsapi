@@ -53,7 +53,9 @@ public class PointsController {
 
         repositoryOfPointsAccounts.save(startingPointsAccount);
 
-        return startingPointsAccount.getPoints();
+        return pointsToAddToAccount.getChangeByPoints();
+
+//        return startingPointsAccount.getPoints();
 
     }
 
