@@ -47,12 +47,14 @@ public class PointsController {
 
         PointsAccount startingPointsAccount = repositoryOfPointsAccounts.findOne(id);
 
+        System.out.println("Passed in: " + pointsToAddToAccount.getChangeByPoints());
+
         int updatedPoints = startingPointsAccount.getPoints() + pointsToAddToAccount.getChangeByPoints();
 
         startingPointsAccount.setPoints(updatedPoints);
 
         repositoryOfPointsAccounts.save(startingPointsAccount);
-        
+
         return startingPointsAccount.getPoints();
 
     }
