@@ -129,7 +129,7 @@ public class PointsControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"changeByPoints\":1}"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("2"));
+                .andExpect(jsonPath("points", is(2)));
     }
 
     @Test
@@ -147,7 +147,7 @@ public class PointsControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"changeByPoints\":1}"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("0"));
+                .andExpect(jsonPath("points", is(0)));;
     }
 
 }

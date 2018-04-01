@@ -14,14 +14,12 @@ import static springfox.documentation.builders.PathSelectors.regex;
  */
 @Configuration
 @EnableSwagger2
+//UI endpoint http://localhost:8080/swagger-ui.html
 public class SwaggerConfig {
     @Bean
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select().apis(RequestHandlerSelectors.basePackage("brownieapi.apicontroller"))
                 .build();
-
-//                        .paths(regex("/product/*"))
-
     }
 }
