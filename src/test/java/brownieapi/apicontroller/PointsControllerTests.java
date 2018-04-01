@@ -7,6 +7,7 @@ package brownieapi.apicontroller;
 
 import brownieapi.model.PointsAccount;
 import brownieapi.dataaccess.PointsCollectorRepository;
+import brownieapi.model.AddPointsToAccount;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -103,15 +104,50 @@ public class PointsControllerTests {
     @Test
     public void testCreatePointsAccount() throws Exception {
 
-        PointsAccount pointsAccount = new PointsAccount(1234, "richwithprofiles");
+        PointsAccount pointsAccount = new PointsAccount(1234, "Bryan Clough");
 
         when(repositoryOfPointsAccounts.save(pointsAccount)).thenReturn(pointsAccount);
 
         mockMvc.perform(post("/api/addEntry")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content("{\"name\":\"richwithprofiles\", \"points\":1234}"))
+                    .content("{\"name\":\"Bryan Clough\", \"points\":1234}"))
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void testAddPointsAccount() throws Exception {
+
+        AddPointsToAccount pointsAccountChangePoints =
+                new AddPointsToAccount(1);
+        PointsAccount pointsAccount = new PointsAccount(1, "richwithprofiles");
+        pointsAccount.setID(new Long(1));
+        Long idToChange = new Long(1);
+
+        when(repositoryOfPointsAccounts.findOne(idToChange)).thenReturn(pointsAccount);
+
+        mockMvc.perform(put("/api/addPoint/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"changeByPoints\":1}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("points", is(2)));
+    }
+
+    @Test
+    public void testRemovePointsAccount() throws Exception {
+
+        AddPointsToAccount pointsAccountChangePoints =
+                new AddPointsToAccount(1);
+        PointsAccount pointsAccount = new PointsAccount(1, "richwithprofiles");
+        pointsAccount.setID(new Long(1));
+        Long idToChange = new Long(1);
+
+        when(repositoryOfPointsAccounts.findOne(idToChange)).thenReturn(pointsAccount);
+
+        mockMvc.perform(put("/api/removePoint/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"changeByPoints\":1}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("points", is(0)));;
+    }
 
 }
